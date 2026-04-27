@@ -10,7 +10,7 @@ export default function App() {
 
   // 🔵 GET USERS
   const getUsers = async () => {
-    const res = await fetch("http://localhost:4000/users")
+    const res = await fetch("http://localhost:5000/users")
     const data = await res.json()
     setUsers(data)
   }
@@ -19,7 +19,7 @@ export default function App() {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-    await fetch("http://localhost:4000/users", {
+    await fetch("http://localhost:5000/users", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name })
@@ -30,8 +30,8 @@ export default function App() {
   }
 
   // 🟡 UPDATE USER (PUT)
-  const updateUser = async (id) => {
-    await fetch(`http://localhost:4000/users/${id}`, {
+  const updateUser = async (_id) => {
+    await fetch(`http://localhost:5000/users/${_id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ name })
@@ -43,8 +43,8 @@ export default function App() {
   }
 
   // 🔴 DELETE USER
-  const deleteUser = async (id) => {
-    await fetch(`http://localhost:4000/users/${id}`, {
+  const deleteUser = async (_id) => {
+    await fetch(`http://localhost:5000/users/${_id}`, {
       method: "DELETE"
     })
 
@@ -85,7 +85,7 @@ export default function App() {
         ) : (
           users.map((user) => (
             <div
-              key={user.id}
+              key={user._id}
               className="flex justify-center items-center gap-3 mb-2"
             >
 
@@ -96,7 +96,7 @@ export default function App() {
               <button
                 onClick={() => {
                   setName(user.name)
-                  setEditId(user.id)
+                  setEditId(user._id)
                 }}
                 className="bg-yellow-500 px-3 py-1 rounded"
               >
@@ -105,7 +105,7 @@ export default function App() {
 
               {/* UPDATE */}
               <button
-                onClick={() => updateUser(user.id)}
+                onClick={() => updateUser(user._id)}
                 className="bg-blue-600 px-3 py-1 rounded"
               >
                 Update
@@ -113,7 +113,7 @@ export default function App() {
 
               {/* DELETE */}
               <button
-                onClick={() => deleteUser(user.id)}
+                onClick={() => deleteUser(user._id)}
                 className="bg-red-600 px-3 py-1 rounded"
               >
                 Delete
